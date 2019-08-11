@@ -21,7 +21,7 @@ def index(request):
     cursor = queryByAQL('FOR u IN hw_user RETURN u')
     for u in cursor:
         print(u)
-        user = models.Userinfo()
+        user = models.User()
         user.name = u['name']
         user.id = u['id']
         users.append(user)

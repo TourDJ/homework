@@ -8,11 +8,11 @@ class BaseMode(models.Model):
     _rev = models.CharField(max_length=1000)
 
 
-class Userinfo(BaseMode):
+class User(BaseMode):
     id = models.IntegerField()
     name = models.CharField(max_length=1000)
 
     def __str__(self):
-        return '(Userinfo: %d, %s)' % (self.id, self.name)
+        return '(User: %d, %s)' % (self.id, self.name)
 
 
