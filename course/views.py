@@ -6,24 +6,17 @@ from . import models
 
 # Create your views here.
 
-def connectArangodb():
-    client = ArangoClient(protocol='http', host='localhost', port=8529)
-    db = client.db('homework', username='jiefang', password='jiefang')
-    return db
-
-def queryByAQL(aql):
-    db = connectArangodb()
-    cursor = db.aql.execute(aql)
-    return cursor
+queryByAQL = models.queryByAQL
 
 def index(request):
-    users = []
-    cursor = queryByAQL('FOR u IN hw_user RETURN u')
+    classworks = []
+    aql = 'FOR u IN hw_classwork RETURN u'
+    cursor = queryByAQL(aql)
     for u in cursor:
         print(u)
-        user = models.User()
-        user.name = u['name']
-        user.id = u['id']
-        users.append(user)
-    print(users)
-    return HttpResponse('Hello, world.')
+        classwork = models.Classwork()
+        classwork.userId = u['userId']
+        classwork.title = u['title']
+        classworks.append(classwork)
+    print(classworks)
+    return HttpResponse(classworks)
